@@ -1,0 +1,9 @@
+[submodule "app/src/python-clblob"]
+	path = app/src/python-clblob
+	url = https://github.com/craigslist/python-clblob
+[submodule "app/src/school-of-sre"]
+	path = app/src/school-of-sre
+	url = https://github.com/linkedin/school-of-sre
+[submodule "app/src/iwf"]
+	path = app/src/iwf
+	url = https://github.com/indeedeng/iwf
