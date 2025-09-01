@@ -7,3 +7,6 @@
 [submodule "app/src/iwf"]
 	path = app/src/iwf
 	url = https://github.com/indeedeng/iwf
+[submodule "app/src/quiche"]
+	path = app/src/quiche
+	url = https://github.com/cloudflare/quiche
