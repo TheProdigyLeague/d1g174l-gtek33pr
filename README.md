@@ -1,6 +1,6 @@
 # Digital Gatekeepers vs. Unregulated Data Brokers
 
-This document aims to clarify what the difference is between Digital Gatekeepers and Unregulated Data Brokers within the realm of deep learning, social media, job marketes, and data transparency.
+This document aims to clarify what the difference is between Digital Gatekeepers and Unregulated Data Brokers within the realm of deep learning, social media, job markets, and data transparency.
 
 ## What is Digital Gatekeeper?
 
