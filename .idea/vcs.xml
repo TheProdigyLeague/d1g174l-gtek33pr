@@ -3,7 +3,9 @@
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/app/src/iwf" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/app/src/iwf/gen/iwfidl" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/app/src/python-clblob" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/app/src/quiche" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/app/src/school-of-sre" vcs="Git" />
   </component>
 </project>
