@@ -19,5 +19,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "d1g174l-gtek33pr"
+rootProject.name = "d1g174l-gt3kpr"
 include(":app")
