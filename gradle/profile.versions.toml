@@ -1,0 +1,27 @@
+[versions]
+plugin-publish = "1.2.1"
+kotlin = "1.9.10"
+shadow = "8.1.1"
+node = "7.0.1"
+spotless = "6.22.0"
+ktlint = "0.50.0" # Version should align with spotless
+
+[libraries]
+kotlin-gradlePlugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
+shadow-gradlePlugin = { module = "com.github.jengelman.gradle.plugins:shadow", version.ref = "shadow" }
+node-gradlePlugin = { module = "com.github.node-gradle:gradle-node-plugin", version.ref = "node" }
+spotless-gradlePlugin = { module = "com.diffplug.spotless:spotless-plugin-gradle", version.ref = "spotless" }
+
+[plugins]
+plugin-publish = { id = "com.gradle.plugin-publish", version.ref = "plugin-publish" }
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+shadow = { id = "com.github.johnrengelman.shadow", version.ref = "shadow" }
+node = { id = "com.github.node-gradle.node", version.ref = "node" }
+spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }
+
+# Mock JavaScript plugin dependencies (adjust as needed for your specific mocking setup)
+profile-aggregator-core = { id = "com.example.profile-aggregator.core", version = "1.0.0" } # Hypothetical core plugin
+profile-aggregator-js-runtime = { id = "com.example.profile-aggregator.js-runtime", version = "1.0.0" } # Hypothetical JS runtime plugin
+
+# For testing JavaScript plugins (example, replace with actual testing framework if needed)
+jest = { id = "com.github.node-gradle.jest", version.ref = "node" } # Assuming Jest via gradle-node-plugin for JS testing
