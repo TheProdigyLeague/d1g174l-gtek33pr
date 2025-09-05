@@ -1,0 +1,797 @@
+<html lang="en-US"><head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=960, initial-scale=1.0, user-scalable=1">
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8">
+    <meta http-equiv="cache-control" content="no-cache,no-store">
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="expires" content="-1">
+    <meta name="mswebdialog-title" content="Connecting to auth.peoplematter.com">
+
+    <title>Login | Fourth - Peoplematter</title>
+    <script type="text/javascript" async="" src="https://cdn.walkme.com/users/c0e091733f5b48bb885e2cead0d4f7a9/walkme_c0e091733f5b48bb885e2cead0d4f7a9_https.js"></script><script type="text/javascript">
+    //<![CDATA[
+    function LoginErrors(){this.userNameFormatError = 'Enter your user ID in the format \u0026quot;domain\\user\u0026quot; or \u0026quot;user@domain\u0026quot;.'; this.passwordEmpty = 'Enter your password.'; this.passwordTooLong = 'Password is too long (\u0026gt; 128 characters).';}; var maxPasswordLength = 128;
+    //]]>
+</script>
+
+    <script type="text/javascript">
+        //<![CDATA[
+        // Copyright (c) Microsoft Corporation.  All rights reserved.
+        function InputUtil(errTextElementID, errDisplayElementID) {
+
+            if (!errTextElementID)  errTextElementID = 'errorText';
+            if (!errDisplayElementID)  errDisplayElementID = 'error';
+
+            this.hasFocus = false;
+            this.errLabel = document.getElementById(errTextElementID);
+            this.errDisplay = document.getElementById(errDisplayElementID);
+        };
+        InputUtil.prototype.canDisplayError = function () {
+            return this.errLabel && this.errDisplay;
+        }
+        InputUtil.prototype.checkError = function () {
+            if (!this.canDisplayError){
+                throw new Error ('Error element not present');
+            }
+            if (this.errLabel && this.errLabel.innerHTML) {
+                this.errDisplay.style.display = '';
+                var cause = this.errLabel.getAttribute('for');
+                if (cause) {
+                    var causeNode = document.getElementById(cause);
+                    if (causeNode && causeNode.value) {
+                        causeNode.focus();
+                        this.hasFocus = true;
+                    }
+                }
+            }
+            else {
+                this.errDisplay.style.display = 'none';
+            }
+        };
+        InputUtil.prototype.setInitialFocus = function (input) {
+            if (this.hasFocus) return;
+            var node = document.getElementById(input);
+            if (node) {
+                if ((/^\s*$/).test(node.value)) {
+                    node.focus();
+                    this.hasFocus = true;
+                }
+            }
+        };
+        InputUtil.prototype.setError = function (input, errorMsg) {
+            if (!this.canDisplayError) {
+                throw new Error('Error element not present');
+            }
+            input.focus();
+
+            if (errorMsg) {
+                this.errLabel.innerHTML = errorMsg;
+            }
+            this.errLabel.setAttribute('for', input.id);
+            this.errDisplay.style.display = '';
+        };
+        InputUtil.makePlaceholder = function (input) {
+            var ua = navigator.userAgent;
+
+            if (ua != null &&
+                (ua.match(/MSIE 9.0/) != null ||
+                 ua.match(/MSIE 8.0/) != null ||
+                 ua.match(/MSIE 7.0/) != null)) {
+                var node = document.getElementById(input);
+                if (node) {
+                    var placeholder = node.getAttribute("placeholder");
+                    if (placeholder != null && placeholder != '') {
+                        var label = document.createElement('input');
+                        label.type = "text";
+                        label.value = placeholder;
+                        label.readOnly = true;
+                        label.style.position = 'absolute';
+                        label.style.borderColor = 'transparent';
+                        label.className = node.className + ' hint';
+                        label.tabIndex = -1;
+                        label.onfocus = function () { this.nextSibling.focus(); };
+
+                        node.style.position = 'relative';
+                        node.parentNode.style.position = 'relative';
+                        node.parentNode.insertBefore(label, node);
+                        node.onkeyup = function () { InputUtil.showHint(this); };
+                        node.onblur = function () { InputUtil.showHint(this); };
+                        node.style.background = 'transparent';
+
+                        node.setAttribute("placeholder", "");
+                        InputUtil.showHint(node);
+                    }
+                }
+            }
+        };
+        InputUtil.focus = function (inputField) {
+            var node = document.getElementById(inputField);
+            if (node) node.focus();
+        };
+        InputUtil.hasClass = function(node, clsName) {
+            return node.className.match(new RegExp('(\\s|^)' + clsName + '(\\s|$)'));
+        };
+        InputUtil.addClass = function(node, clsName) {
+            if (!this.hasClass(node, clsName)) node.className += " " + clsName;
+        };
+        InputUtil.removeClass = function(node, clsName) {
+            if (this.hasClass(node, clsName)) {
+                var reg = new RegExp('(\\s|^)' + clsName + '(\\s|$)');
+                node.className = node.className.replace(reg, ' ');
+            }
+        };
+        InputUtil.showHint = function (node, gotFocus) {
+            if (node.value && node.value != '') {
+                node.previousSibling.style.display = 'none';
+            }
+            else {
+                node.previousSibling.style.display = '';
+            }
+        };
+        InputUtil.updatePlaceholder = function (input, placeholderText) {
+            var node = document.getElementById(input);
+            if (node) {
+                var ua = navigator.userAgent;
+                if (ua != null &&
+                    (ua.match(/MSIE 9.0/) != null ||
+                    ua.match(/MSIE 8.0/) != null ||
+                    ua.match(/MSIE 7.0/) != null)) {
+                    var label = node.previousSibling;
+                    if (label != null) {
+                        label.value = placeholderText;
+                    }
+                }
+                else {
+                    node.placeholder = placeholderText;
+                }
+            }
+        };
+
+        //]]>
+    </script>
+
+
+
+    <link rel="stylesheet" type="text/css" href="/adfs/portal/css/style.css?id=2E948164C23E24AB562705E3A26013F04DEC36CEAFCF86DDFBE267AB438EE597"><style>.illustrationClass {background-image:url(/adfs/portal/illustration/illustration.png?id=183128A3C941EDE3D9199FA37D6AA90E0A7DFE101B37D10B4FEDA0CF35E11AFD);}</style>
+
+    <link rel="icon" href="/adfs/portal/images/favicon.ico"><script id="mt_script_876300296" async="true" class="walkme-to-remove" src="https://cdn.walkme.com/users/c0e091733f5b48bb885e2cead0d4f7a9/settings.txt"></script></head>
+<body dir="ltr" class="body">
+<div id="noScript" style="position: static; width: 100%; height: 100%; z-index: 100; display: none;">
+    <h1>JavaScript required</h1>
+    <p>JavaScript is required. This web browser does not support JavaScript or JavaScript in this web browser is not enabled.</p>
+    <p>To find out if your web browser supports JavaScript or to enable JavaScript, see web browser help.</p>
+</div>
+<script type="text/javascript" language="JavaScript">
+    document.getElementById("noScript").style.display = "none";
+</script>
+<div id="fullPage">
+    <div id="sidebar">                <div id="sidebar-content">                    <img class="logo" id="logo" src="/adfs/portal/images/peoplematter.png">                    <p>                        PeopleMatter                        <i>is now a part</i>                        <i>of</i> Fourth!                    </p>                    <a class="btn" href="https://community.snagajob.com/s/article/Fourth-s-acquisition-of-the-PeopleMatter-product" target="_blank">                        <button>LEARN MORE</button>                    </a>                </div>            </div>
+    <div id="contentWrapper" class="float">
+        <div id="content">
+            <div id="header">
+                <img class="logoImage" id="companyLogo" src="/adfs/portal/logo/logo.png?id=F07BB1522EF022FDE54C730D8098F79BB64FABF9F982F0F6C96EEA8B1A865ACB" alt="auth.peoplematter.com">
+            </div>
+            <main>
+                <div id="workArea">
+
+                    <div id="authArea" class="groupMargin">
+
+
+
+                        <div id="loginArea">
+                            <div id="loginMessage" class="groupMargin">You can log in with the same username and password that you're used to.</div>
+
+                            <form method="post" id="loginForm" autocomplete="off" novalidate="novalidate" onkeypress="if (event &amp;&amp; event.keyCode == 13) Login.submitLoginRequest();" action="/adfs/ls/?wa=wsignin1.0&amp;wtrealm=https%3a%2f%2fmy.peoplematter.com%2f&amp;wctx=rm%3d0%26id%3dpassive%26ru%3d%252f&amp;wct=2025-09-05T21%3a31%3a14Z&amp;whr=http%3a%2f%2fauth.peoplematter.com%2fadfs%2fservices%2ftrust&amp;client-request-id=adcaa7f3-d096-4be2-03b3-1c8000000031">
+                                <div id="error" class="fieldMargin error smallText" style="display: none;">
+                                    <span id="errorText" for="" aria-live="assertive" role="alert"></span>
+                                </div>
+
+                                <div id="formsAuthenticationArea">
+                                    <div id="userNameArea">
+                                        <label id="userNameInputLabel" for="userNameInput" class="">        Username        <span class="required"><strong>*</strong></span></label>
+                                        <input id="userNameInput" name="UserName" type="email" value="" tabindex="1" class="text fullWidth hidden" spellcheck="false" placeholder="someone@example.com" autocomplete="off">
+                                        <input id="customUserNameInput" class="text fullWidth" tabindex="1" autocomplete="off" spellcheck="false"></div>
+
+                                    <div id="passwordArea">
+                                        <label id="passwordInputLabel" for="passwordInput" class="">        Password        <span class="required"><strong>*</strong></span></label>
+                                        <input id="passwordInput" name="Password" type="password" tabindex="2" class="text fullWidth" placeholder="" autocomplete="off">
+                                        <div id="show-password" title="Show password"><svg viewBox="0 0 576 512" fill="currentColor" class="fa-icon-eye"><path d="M160 256C160 185.3 217.3 128 288 128C358.7 128 416 185.3 416 256C416 326.7 358.7 384 288 384C217.3 384 160 326.7 160 256zM288 336C332.2 336 368 300.2 368 256C368 211.8 332.2 176 288 176C287.3 176 286.7 176 285.1 176C287.3 181.1 288 186.5 288 192C288 227.3 259.3 256 224 256C218.5 256 213.1 255.3 208 253.1C208 254.7 208 255.3 208 255.1C208 300.2 243.8 336 288 336L288 336zM95.42 112.6C142.5 68.84 207.2 32 288 32C368.8 32 433.5 68.84 480.6 112.6C527.4 156 558.7 207.1 573.5 243.7C576.8 251.6 576.8 260.4 573.5 268.3C558.7 304 527.4 355.1 480.6 399.4C433.5 443.2 368.8 480 288 480C207.2 480 142.5 443.2 95.42 399.4C48.62 355.1 17.34 304 2.461 268.3C-.8205 260.4-.8205 251.6 2.461 243.7C17.34 207.1 48.62 156 95.42 112.6V112.6zM288 80C222.8 80 169.2 109.6 128.1 147.7C89.6 183.5 63.02 225.1 49.44 256C63.02 286 89.6 328.5 128.1 364.3C169.2 402.4 222.8 432 288 432C353.2 432 406.8 402.4 447.9 364.3C486.4 328.5 512.1 286 526.6 256C512.1 225.1 486.4 183.5 447.9 147.7C406.8 109.6 353.2 80 288 80V80z"></path></svg><svg viewBox="0 0 640 512" fill="currentColor" class="fa-icon-eye-slash" display="none"><path d="M150.7 92.77C195 58.27 251.8 32 320 32C400.8 32 465.5 68.84 512.6 112.6C559.4 156 590.7 207.1 605.5 243.7C608.8 251.6 608.8 260.4 605.5 268.3C592.1 300.6 565.2 346.1 525.6 386.7L630.8 469.1C641.2 477.3 643.1 492.4 634.9 502.8C626.7 513.2 611.6 515.1 601.2 506.9L9.196 42.89C-1.236 34.71-3.065 19.63 5.112 9.196C13.29-1.236 28.37-3.065 38.81 5.112L150.7 92.77zM189.8 123.5L235.8 159.5C258.3 139.9 287.8 128 320 128C390.7 128 448 185.3 448 256C448 277.2 442.9 297.1 433.8 314.7L487.6 356.9C521.1 322.8 545.9 283.1 558.6 256C544.1 225.1 518.4 183.5 479.9 147.7C438.8 109.6 385.2 79.1 320 79.1C269.5 79.1 225.1 97.73 189.8 123.5L189.8 123.5zM394.9 284.2C398.2 275.4 400 265.9 400 255.1C400 211.8 364.2 175.1 320 175.1C319.3 175.1 318.7 176 317.1 176C319.3 181.1 320 186.5 320 191.1C320 202.2 317.6 211.8 313.4 220.3L394.9 284.2zM404.3 414.5L446.2 447.5C409.9 467.1 367.8 480 320 480C239.2 480 174.5 443.2 127.4 399.4C80.62 355.1 49.34 304 34.46 268.3C31.18 260.4 31.18 251.6 34.46 243.7C44 220.8 60.29 191.2 83.09 161.5L120.8 191.2C102.1 214.5 89.76 237.6 81.45 255.1C95.02 286 121.6 328.5 160.1 364.3C201.2 402.4 254.8 432 320 432C350.7 432 378.8 425.4 404.3 414.5H404.3zM192 255.1C192 253.1 192.1 250.3 192.3 247.5L248.4 291.7C258.9 312.8 278.5 328.6 302 333.1L358.2 378.2C346.1 381.1 333.3 384 319.1 384C249.3 384 191.1 326.7 191.1 255.1H192z"></path></svg></div></div>
+                                    <div id="kmsiArea" style="display:none">
+                                        <input type="checkbox" name="Kmsi" id="kmsiInput" value="true" tabindex="3">
+                                        <label for="kmsiInput">Keep me signed in</label>
+                                    </div>
+                                    <div id="submissionArea" class="submitMargin">
+                                        <span id="submitButton" class="submit customButton" tabindex="4" role="button" onkeypress="if (event &amp;&amp; event.keyCode == 32) Login.submitLoginRequest();" onclick="return Login.submitLoginRequest();">LOG IN</span>
+                                    </div>
+                                    <div id="forgotPassword"><a href="https://my.peoplematter.com/Account/ForgotUsernamePassword?returnUrl=https%3A%2F%2Fadfs.fourth.com%2Fadfs%2Fls%2Fidpinitiatedsignon" id="forgotPasswordLink" class="links"> Forgot Username/Password?</a></div><div id="extraLinks"><a href="https://www.fourth.com/legal/privacy-policy" id="privacyPolicyLink" target="_blank" class="links">Privacy Policy</a><br><a href="https://www.fourth.com/legal/cookies-policy-solutions-and-applications" id="cookiesLink" target="_blank" class="links">Cookies</a></div><div id="globalLogin"><div class="separator">OR</div><a id="globalprofile" class="customButton" href="https://secure.na1.fourth.com">Log In With Fourth Account</a>
+                                    <div class="tooltip">
+                                        <img src="/adfs/portal/images/help.png" alt="" class="info-icon">
+                                        What is a Fourth Account.
+                                        <span class="tooltiptext">
+                    <span class="tooltip-title">
+                        What is a Fourth Account?
+                    </span>
+                    <span class="tooltip-content">
+                        Now that PeopleMatter is powered by Fourth, all users will eventually update their accounts to be a Fourth Account. If you were recently required to update your account, you have a Fourth Account.
+                    </span>
+                    <span class="tooltip-footer">
+                        A Fourth Account username looks like an email address.
+                    </span>
+                </span>
+                                    </div></div></div>
+                                <input id="optionForms" type="hidden" name="AuthMethod" value="FormsAuthentication">
+                            </form>
+
+                            <div id="authOptions">
+                                <form id="options" method="post" action="https://auth.peoplematter.com:443/adfs/ls/?wa=wsignin1.0&amp;wtrealm=https%3a%2f%2fmy.peoplematter.com%2f&amp;wctx=rm%3d0%26id%3dpassive%26ru%3d%252f&amp;wct=2025-09-05T21%3a31%3a14Z&amp;whr=http%3a%2f%2fauth.peoplematter.com%2fadfs%2fservices%2ftrust&amp;client-request-id=adcaa7f3-d096-4be2-03b3-1c8000000031">
+                                    <script type="text/javascript">
+                                        function SelectOption(option) {
+                                            var w = document.getElementById('waitingWheelDiv');
+                                            if(w) w.style.display = 'inline';
+                                            var i = document.getElementById('optionSelection');
+                                            i.value = option;
+                                            document.forms['options'].submit();
+                                            return false;
+                                        }
+                                    </script>
+                                    <input id="optionSelection" type="hidden" name="AuthMethod">
+                                    <input id="userNameInputOptionsHolder" name="UserName" value="" type="hidden">
+
+                                </form>
+                            </div>
+
+                            <div id="introduction" class="groupMargin">
+
+                            </div>
+
+                            <script type="text/javascript">
+                                //<![CDATA[
+
+                                    function Login() {
+                                    }
+
+                                    Login.userNameInput = 'userNameInput';
+                                    Login.passwordInput = 'passwordInput';
+
+                                    Login.initialize = function () {
+
+                                        var u = new InputUtil();
+
+                                        u.checkError();
+                                        u.setInitialFocus(Login.userNameInput);
+                                        u.setInitialFocus(Login.passwordInput);
+                                    }();
+
+                                    Login.submitLoginRequest = function () {
+                                        var u = new InputUtil();
+                                        var e = new LoginErrors();
+
+                                        var userName = document.getElementById(Login.userNameInput);
+                                        var password = document.getElementById(Login.passwordInput);
+
+                                        if (!userName.value || !userName.value.match('[@\\\\]')) {
+                                            u.setError(userName, e.userNameFormatError);
+                                            return false;
+                                        }
+
+                                        if (!password.value) {
+                                            u.setError(password, e.passwordEmpty);
+                                            return false;
+                                        }
+
+                                        if (password.value.length > maxPasswordLength) {
+                                            u.setError(password, e.passwordTooLong);
+                                            return false;
+                                        }
+
+                                        document.forms['loginForm'].submit();
+                                        return false;
+                                    };
+
+                                    InputUtil.makePlaceholder(Login.userNameInput);
+                                    InputUtil.makePlaceholder(Login.passwordInput);
+                                //]]>
+                            </script>
+                        </div>
+
+                    </div>
+
+                </div>
+            </main>
+            <div id="footerPlaceholder"></div>
+        </div>
+        <footer id="footer">
+            <div id="footerLinks" class="floatReverse">
+                <div></div>
+            </div>
+        </footer>
+    </div>
+</div>
+<script type="text/javascript">
+    //<![CDATA[
+    // Copyright (c) Microsoft Corporation.  All rights reserved.
+
+    // This file contains several workarounds on inconsistent browser behaviors that administrators may customize.
+    "use strict";
+
+    const config = {
+        zendeskChatBotEnabled: "true" === "true",
+        zendeskChatBotURL: "https://static.zdassets.com/ekr/snippet.js",
+        zendeskChatBotKey: "03f28877-f712-4a52-83d6-1778fabde90e"
+    }
+
+    const errorMessages = {
+        defaultErrorText: 'Incorrect user ID or password. Type the correct user ID and password, and try again.',
+        customErrorText: 'Incorrect User ID or password. Type the correct user ID and password, and try again or click Forgot Username/Password to recover details.'
+    }
+
+    // iPhone email friendly keyboard does not include "\" key, use regular keyboard instead.
+    // Note change input type does not work on all versions of all browsers.
+    if (navigator.userAgent.match(/iPhone/i) != null) {
+        var emails = document.querySelectorAll("input[type='email']");
+        if (emails) {
+            for (var i = 0; i < emails.length; i++) {
+                emails[i].type = 'text';
+            }
+        }
+    }
+
+    // In the CSS file we set the ms-viewport to be consistent with the device dimensions,
+    // which is necessary for correct functionality of immersive IE.
+    // However, for Windows 8 phone we need to reset the ms-viewport's dimension to its original
+    // values (auto), otherwise the viewport dimensions will be wrong for Windows 8 phone.
+    // Windows 8 phone has agent string 'IEMobile 10.0'
+    if (navigator.userAgent.match(/IEMobile\/10\.0/)) {
+        var msViewportStyle = document.createElement("style");
+        msViewportStyle.appendChild(
+            document.createTextNode(
+                "@-ms-viewport{width:auto!important}"
+            )
+        );
+        msViewportStyle.appendChild(
+            document.createTextNode(
+                "@-ms-viewport{height:auto!important}"
+            )
+        );
+        document.getElementsByTagName("head")[0].appendChild(msViewportStyle);
+    }
+
+    // If the innerWidth is defined, use it as the viewport width.
+    if (window.innerWidth && window.outerWidth && window.innerWidth !== window.outerWidth) {
+        var viewport = document.querySelector("meta[name=viewport]");
+        viewport.setAttribute('content', 'width=' + window.innerWidth + ', initial-scale=1.0, user-scalable=1');
+    }
+
+    function samLookupUrl(username) {
+        var searchParams = new URLSearchParams();
+        searchParams.set("username", username)
+        return "https://my.peoplematter.com/samlookup/UserAccount?" + searchParams.toString();
+    }
+
+    if (typeof Login != 'undefined') {
+        Login.submitLoginRequest = function () {
+            var u = new InputUtil();
+            var e = new LoginErrors();
+            e.userNameFormatError = 'Enter your username.'
+            var customUserNameInput = document.getElementById('customUserNameInput');
+            var password = document.getElementById(Login.passwordInput);
+
+            if (!customUserNameInput.value) {
+                u.setError(customUserNameInput, e.userNameFormatError);
+                return false;
+            }
+
+            if (!password.value) {
+                u.setError(password, e.passwordEmpty);
+                return false;
+            }
+
+            if (customUserNameInput.value) {
+                var lookupUrl = samLookupUrl(customUserNameInput.value)
+                var fetchPromise = fetch(lookupUrl)
+                    .then(response => response.text())
+                    .then(text => {
+                        if (text == "") {
+                            u.setError(customUserNameInput, errorMessages.customErrorText);
+                            return false;
+                        }
+
+                        document.forms['loginForm'].UserName.value = text + "@pm-grid";
+                        document.forms['loginForm'].submit();
+                    })
+                    .catch((err) => {
+                        console.error(err);
+                    })
+
+                return fetchPromise;
+            }
+
+            return false;
+        };
+    }
+
+    // Gets the current style of a specific property for a specific element.
+    function getStyle(element, styleProp) {
+        var propStyle = null;
+
+        if (element && element.currentStyle) {
+            propStyle = element.currentStyle[styleProp];
+        }
+        else if (element && window.getComputedStyle) {
+            propStyle = document.defaultView.getComputedStyle(element, null).getPropertyValue(styleProp);
+        }
+
+        return propStyle;
+    }
+
+    // The script below is used for downloading the illustration image
+    // only when the branding is displaying. This script work together
+    // with the code in PageBase.cs that sets the html inline style
+    // containing the class 'illustrationClass' with the background image.
+    var computeLoadIllustration = function () {
+        var branding = document.getElementById("branding");
+        var brandingDisplay = getStyle(branding, "display");
+        var brandingWrapperDisplay = getStyle(document.getElementById("brandingWrapper"), "display");
+
+        if (brandingDisplay && brandingDisplay !== "none" &&
+            brandingWrapperDisplay && brandingWrapperDisplay !== "none") {
+            var newClass = "illustrationClass";
+
+            if (branding.classList && branding.classList.add) {
+                branding.classList.add(newClass);
+            } else if (branding.className !== undefined) {
+                branding.className += " " + newClass;
+            }
+            if (window.removeEventListener) {
+                window.removeEventListener('load', computeLoadIllustration, false);
+                window.removeEventListener('resize', computeLoadIllustration, false);
+            }
+            else if (window.detachEvent) {
+                window.detachEvent('onload', computeLoadIllustration);
+                window.detachEvent('onresize', computeLoadIllustration);
+            }
+        }
+    };
+
+    if (window.addEventListener) {
+        window.addEventListener('resize', computeLoadIllustration, false);
+        window.addEventListener('load', computeLoadIllustration, false);
+    }
+    else if (window.attachEvent) {
+        window.attachEvent('onresize', computeLoadIllustration);
+        window.attachEvent('onload', computeLoadIllustration);
+    }
+
+    // Function to change illustration image. Usage example below.
+    function SetIllustrationImage(imageUri) {
+        var illustrationImageClass = '.illustrationClass {background-image:url(' + imageUri + ');}';
+
+        var css = document.createElement('style');
+        css.type = 'text/css';
+
+        if (css.styleSheet) css.styleSheet.cssText = illustrationImageClass;
+        else css.appendChild(document.createTextNode(illustrationImageClass));
+
+        document.getElementsByTagName("head")[0].appendChild(css);
+    }
+
+    function createFontAwesomeSVGIcons() {
+        var iconSet = [
+            {
+                name: 'eye',
+                props: {
+                    viewBox: '0 0 576 512'
+                },
+                path: {
+                    props: {
+                        d: 'M160 256C160 185.3 217.3 128 288 128C358.7 128 416 185.3 416 256C416 326.7 358.7 384 288 384C217.3 384 160 326.7 160 256zM288 336C332.2 336 368 300.2 368 256C368 211.8 332.2 176 288 176C287.3 176 286.7 176 285.1 176C287.3 181.1 288 186.5 288 192C288 227.3 259.3 256 224 256C218.5 256 213.1 255.3 208 253.1C208 254.7 208 255.3 208 255.1C208 300.2 243.8 336 288 336L288 336zM95.42 112.6C142.5 68.84 207.2 32 288 32C368.8 32 433.5 68.84 480.6 112.6C527.4 156 558.7 207.1 573.5 243.7C576.8 251.6 576.8 260.4 573.5 268.3C558.7 304 527.4 355.1 480.6 399.4C433.5 443.2 368.8 480 288 480C207.2 480 142.5 443.2 95.42 399.4C48.62 355.1 17.34 304 2.461 268.3C-.8205 260.4-.8205 251.6 2.461 243.7C17.34 207.1 48.62 156 95.42 112.6V112.6zM288 80C222.8 80 169.2 109.6 128.1 147.7C89.6 183.5 63.02 225.1 49.44 256C63.02 286 89.6 328.5 128.1 364.3C169.2 402.4 222.8 432 288 432C353.2 432 406.8 402.4 447.9 364.3C486.4 328.5 512.1 286 526.6 256C512.1 225.1 486.4 183.5 447.9 147.7C406.8 109.6 353.2 80 288 80V80z'
+                    }
+                }
+            },
+            {
+                name: 'eye-slash',
+                props: {
+                    viewBox: '0 0 640 512'
+                },
+                path: {
+                    props: {
+                        d: 'M150.7 92.77C195 58.27 251.8 32 320 32C400.8 32 465.5 68.84 512.6 112.6C559.4 156 590.7 207.1 605.5 243.7C608.8 251.6 608.8 260.4 605.5 268.3C592.1 300.6 565.2 346.1 525.6 386.7L630.8 469.1C641.2 477.3 643.1 492.4 634.9 502.8C626.7 513.2 611.6 515.1 601.2 506.9L9.196 42.89C-1.236 34.71-3.065 19.63 5.112 9.196C13.29-1.236 28.37-3.065 38.81 5.112L150.7 92.77zM189.8 123.5L235.8 159.5C258.3 139.9 287.8 128 320 128C390.7 128 448 185.3 448 256C448 277.2 442.9 297.1 433.8 314.7L487.6 356.9C521.1 322.8 545.9 283.1 558.6 256C544.1 225.1 518.4 183.5 479.9 147.7C438.8 109.6 385.2 79.1 320 79.1C269.5 79.1 225.1 97.73 189.8 123.5L189.8 123.5zM394.9 284.2C398.2 275.4 400 265.9 400 255.1C400 211.8 364.2 175.1 320 175.1C319.3 175.1 318.7 176 317.1 176C319.3 181.1 320 186.5 320 191.1C320 202.2 317.6 211.8 313.4 220.3L394.9 284.2zM404.3 414.5L446.2 447.5C409.9 467.1 367.8 480 320 480C239.2 480 174.5 443.2 127.4 399.4C80.62 355.1 49.34 304 34.46 268.3C31.18 260.4 31.18 251.6 34.46 243.7C44 220.8 60.29 191.2 83.09 161.5L120.8 191.2C102.1 214.5 89.76 237.6 81.45 255.1C95.02 286 121.6 328.5 160.1 364.3C201.2 402.4 254.8 432 320 432C350.7 432 378.8 425.4 404.3 414.5H404.3zM192 255.1C192 253.1 192.1 250.3 192.3 247.5L248.4 291.7C258.9 312.8 278.5 328.6 302 333.1L358.2 378.2C346.1 381.1 333.3 384 319.1 384C249.3 384 191.1 326.7 191.1 255.1H192z'
+                    }
+                }
+            }
+        ]
+
+        return iconSet.map(icon => {
+            var iconSVG = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+            var iconPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+
+            iconSVG.setAttribute('viewBox', icon.props.viewBox);
+            iconSVG.setAttribute('fill', 'currentColor');
+            iconSVG.classList.add('fa-icon-' + icon.name);
+            iconPath.setAttribute('d', icon.path.props.d);
+            iconSVG.appendChild(iconPath);
+
+            return iconSVG;
+        })
+    }
+
+    var [eyeIcon, eyeSlashIcon] = createFontAwesomeSVGIcons();
+
+    function onInputFocusIn(e) {
+        var parent = e.target.parentElement;
+        if (parent) {
+            var labels = parent.getElementsByTagName('label');
+            if (labels.length > 0) {
+                labels[0].classList.add('has-input');
+            }
+        }
+    }
+
+    function onInputFocusOut(e) {
+        var parent = e.target.parentElement;
+        if (parent) {
+            var labels = parent.getElementsByTagName('label');
+            if (labels.length > 0 && (!e.target.value || e.target.value === '')) {
+                labels[0].classList.remove('has-input');
+            }
+        }
+    }
+
+    function createCustomUserNameInput() {
+        var userNameArea = document.getElementById('userNameArea');
+        var customUserNameInput = document.createElement('input');
+
+        customUserNameInput.id = 'customUserNameInput'
+        customUserNameInput.className += ('text fullWidth');
+        customUserNameInput.tabIndex = 1;
+        customUserNameInput.autocomplete = 'off';
+        customUserNameInput.spellcheck = false;
+        customUserNameInput.addEventListener('focusin', onInputFocusIn);
+        customUserNameInput.addEventListener('focusout', onInputFocusOut);
+
+        userNameArea.appendChild(customUserNameInput);
+        customUserNameInput.focus();
+    };
+
+    function changeLoginMessage() {
+        var loginMessageDiv = document.getElementById('loginMessage');
+        if (loginMessageDiv) {
+            loginMessageDiv.innerHTML = 'You can log in with the same username and password that you\'re used to.';
+        }
+    }
+
+    function changeSubmitBtnText() {
+        var submitButton = document.getElementById('submitButton');
+        if (submitButton) {
+            submitButton.classList.add('customButton');
+            submitButton.innerHTML = 'LOG IN';
+        }
+    }
+
+    function changeDefaultErrorText() {
+        var spanErrorText = document.getElementById('errorText');
+        if (spanErrorText && spanErrorText.innerHTML == errorMessages.defaultErrorText) {
+            spanErrorText.innerHTML = errorMessages.customErrorText;
+        }
+    }
+
+    function removeCopyrightText() {
+        var copyrightDiv = document.getElementById('copyright');
+        if (copyrightDiv) {
+            copyrightDiv.remove();
+        }
+    }
+
+    function addForgotPasswordLink() {
+        var formsAuthenticationAreaDiv = document.getElementById('formsAuthenticationArea');
+        if (formsAuthenticationAreaDiv) {
+            var forgotPasswordDiv = document.createElement('div');
+            forgotPasswordDiv.id = 'forgotPassword';
+            formsAuthenticationAreaDiv.appendChild(forgotPasswordDiv);
+            forgotPasswordDiv.innerHTML = '<a href="https://my.peoplematter.com/Account/ForgotUsernamePassword?returnUrl=https%3A%2F%2Fadfs.fourth.com%2Fadfs%2Fls%2Fidpinitiatedsignon" id="forgotPasswordLink" class="links"> Forgot Username/Password?</a>'
+        }
+    }
+
+    function addPrivacyPolicyAndCookiesLinks() {
+        var formsAuthenticationAreaDiv = document.getElementById('formsAuthenticationArea');
+        if (formsAuthenticationAreaDiv) {
+            var linksDiv = document.createElement('div');
+            linksDiv.id = 'extraLinks';
+            formsAuthenticationAreaDiv.appendChild(linksDiv);
+
+            var privacyLink = '<a href="https://www.fourth.com/legal/privacy-policy" id="privacyPolicyLink" target="_blank" class="links">Privacy Policy</a>';
+            var cookiesLink = '<a href="https://www.fourth.com/legal/cookies-policy-solutions-and-applications" id="cookiesLink" target="_blank" class="links">Cookies</a>';
+
+            linksDiv.innerHTML = privacyLink + '<br/>' + cookiesLink;
+        }
+    }
+
+    function addGlobalProfileLogin() {
+        var formsAuthenticationAreaDiv = document.getElementById('formsAuthenticationArea');
+        if (formsAuthenticationAreaDiv) {
+            var fourthAccountLoginDiv = document.createElement('div');
+            fourthAccountLoginDiv.id = 'globalLogin';
+
+            const separator = '<div class="separator">OR</div>';
+            const fourthAccountBtn = '<a id="globalprofile" class="customButton" href="https://secure.na1.fourth.com">Log In With Fourth Account</a>';
+            const fourthAccountHelp = `
+                <div class="tooltip">
+                    <img src="/adfs/portal/images/help.png" alt="" class="info-icon">
+                    What is a Fourth Account.
+                    <span class="tooltiptext">
+                        <span class="tooltip-title">
+                            What is a Fourth Account?
+                        </span>
+                        <span class="tooltip-content">
+                            Now that PeopleMatter is powered by Fourth, all users will eventually update their accounts to be a Fourth Account. If you were recently required to update your account, you have a Fourth Account.
+                        </span>
+                        <span class="tooltip-footer">
+                            A Fourth Account username looks like an email address.
+                        </span>
+                    </span>
+                </div>`;
+
+            fourthAccountLoginDiv.innerHTML = separator + fourthAccountBtn + fourthAccountHelp;
+            formsAuthenticationAreaDiv.appendChild(fourthAccountLoginDiv);
+        }
+    }
+
+    function removeAuthOptionLinks() {
+        var authOptionLinksDiv = document.getElementById('authOptionLinks');
+        if (authOptionLinksDiv) {
+            authOptionLinksDiv.remove();
+        }
+    }
+
+    function showUsernameInputLabel() {
+        var usernameInputLabel = document.getElementById('userNameInputLabel');
+        if (usernameInputLabel) {
+            usernameInputLabel.classList.remove('hidden');
+            usernameInputLabel.innerHTML = '\
+            Username\
+            <span class="required"><strong>*</strong></span>';
+        }
+    }
+
+    function setPasswordInput() {
+        var passwordInputLabel = document.getElementById('passwordInputLabel');
+        if (passwordInputLabel) {
+            passwordInputLabel.classList.remove('hidden');
+            passwordInputLabel.innerHTML = '\
+            Password\
+            <span class="required"><strong>*</strong></span>';
+        }
+
+        var passwordInput = document.getElementById('passwordInput');
+        if (passwordInput) {
+            passwordInput.placeholder = '';
+            passwordInput.addEventListener('focusin', onInputFocusIn);
+            passwordInput.addEventListener('focusout', onInputFocusOut);
+
+            var showPasswordIcon = document.createElement('div');
+            var passwordArea = passwordInput.parentElement;
+            var togglePasswordVisibility = function () {
+                if (eyeSlashIcon.getAttribute('display') === 'none') { // password is hidden, make it visible
+                    eyeIcon.setAttribute('display', 'none');
+                    eyeSlashIcon.setAttribute('display', 'inline');
+                    passwordInput.type = 'text';
+                    showPasswordIcon.title = 'Hide password';
+                } else { // password is visible, hide it
+                    eyeSlashIcon.setAttribute('display', 'none');
+                    eyeIcon.setAttribute('display', 'inline');
+                    passwordInput.type = 'password';
+                    showPasswordIcon.title = 'Show password';
+                }
+            };
+            eyeIcon.addEventListener('click', togglePasswordVisibility);
+            eyeSlashIcon.addEventListener('click', togglePasswordVisibility);
+            showPasswordIcon.id = 'show-password';
+            showPasswordIcon.title = 'Show password';
+            showPasswordIcon.appendChild(eyeIcon);
+            eyeSlashIcon.setAttribute('display', 'none');
+            showPasswordIcon.appendChild(eyeSlashIcon);
+            passwordArea.appendChild(showPasswordIcon);
+        }
+    }
+
+    function replaceSideBar() {
+        var fullPageDiv = document.getElementById('fullPage');
+        if (fullPageDiv) {
+            var brandingWrapperDiv = document.getElementById('brandingWrapper');
+
+            if (brandingWrapperDiv) {
+                var sidebarDiv = document.createElement('div');
+                sidebarDiv.id = 'sidebar';
+                sidebarDiv.innerHTML = '\
+                    <div id="sidebar-content">\
+                        <img class="logo" id="logo" src="/adfs/portal/images/peoplematter.png">\
+                        <p>\
+                            PeopleMatter\
+                            <i>is now a part</i>\
+                            <i>of</i> Fourth!\
+                        </p>\
+                        <a class="btn" href="https://community.snagajob.com/s/article/Fourth-s-acquisition-of-the-PeopleMatter-product" target="_blank">\
+                            <button>LEARN MORE</button>\
+                        </a>\
+                    </div>\
+                ';
+                fullPageDiv.replaceChild(sidebarDiv, brandingWrapperDiv);
+            }
+        }
+    }
+
+    function addFavIcon() {
+        var link = document.querySelector("link[rel~='icon']");
+        if (!link) {
+            link = document.createElement('link');
+            link.rel = 'icon';
+            document.getElementsByTagName('head')[0].appendChild(link);
+        }
+        link.href = '/adfs/portal/images/favicon.ico';
+    }
+
+    function registerWalkMe() {
+        var walkme = document.createElement('script');
+        walkme.type = 'text/javascript';
+        walkme.async = true;
+        walkme.src = 'https://cdn.walkme.com/users/c0e091733f5b48bb885e2cead0d4f7a9/walkme_c0e091733f5b48bb885e2cead0d4f7a9_https.js';
+
+        var firstScript = document.getElementsByTagName('script')[0];
+        firstScript.parentNode.insertBefore(walkme, firstScript);
+        window._walkmeConfig = { smartLoad: true };
+    }
+
+    function registerChatBot() {
+        if (!config.zendeskChatBotEnabled) return;
+
+        var node = document.createElement('script');
+        node.src = `${config.zendeskChatBotURL}?key=${config.zendeskChatBotKey}`;
+        node.id = 'ze-snippet';
+        node.type = 'text/javascript';
+        document.body.appendChild(node);
+    }
+
+    function runOnLoad() {
+        document.title = 'Login | Fourth - Peoplematter';
+        replaceSideBar();
+        addFavIcon();
+        removeCopyrightText();
+        changeDefaultErrorText();
+
+        var userNameInput = document.getElementById('userNameInput');
+        if (userNameInput) {
+            userNameInput.className += (' hidden');
+            createCustomUserNameInput();
+            changeLoginMessage();
+            changeSubmitBtnText();
+            addForgotPasswordLink();
+            addPrivacyPolicyAndCookiesLinks();
+            if ('true' === 'true') {
+                addGlobalProfileLogin();
+            }
+            removeAuthOptionLinks();
+            showUsernameInputLabel();
+            setPasswordInput();
+        }
+
+        registerWalkMe();
+        registerChatBot();
+    }
+
+    runOnLoad();
+
+    // Example to change illustration image on HRD page after adding the image to active theme:
+    // PSH> Set-AdfsWebTheme -TargetName <activeTheme> -AdditionalFileResource @{uri='{portalBasePath}/images/hrd.jpg';path='.\hrd.jpg'}
+    //
+    //if (typeof HRD != 'undefined') {
+    //    SetIllustrationImage('{portalBasePath}/images/hrd.jpg');
+    //}
+
+    //]]>
+</script><script src="https://static.zdassets.com/ekr/snippet.js?key=03f28877-f712-4a52-83d6-1778fabde90e" id="ze-snippet" type="text/javascript"></script>
+
+
+
+
+
+</body></html>
